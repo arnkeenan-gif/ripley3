@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Ticket Bot – AI-Powered Discord Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#1a1a1a; --bg2:#1f1f1f; --surface:#252525; --surface2:#2a2a2a;
+      --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.1);
+      --accent:#d47c2f; --accent2:#e8943a; --accent-dim:rgba(212,124,47,0.12);
+      --accent-border:rgba(212,124,47,0.35);
+      --text:#e0e0e0; --muted:#777; --muted2:#aaa; --white:#fff;
+      --green:#4ade80; --red:#f87171;
+      --radius:10px; --radius-lg:14px;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px;}
+    a{text-decoration:none;color:inherit;}
+
+    /* NAV */
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:#111;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+    .nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1rem;color:var(--white);}
+    .logo-box{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#d4823a,#c45e1a);display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .nav-links{display:flex;align-items:center;gap:30px;list-style:none;}
+    .nav-links a{font-size:0.875rem;font-weight:500;color:var(--muted2);transition:color .2s;}
+    .nav-links a:hover{color:var(--white);}
+    .btn-discord{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:white;padding:9px 20px;border-radius:8px;font-size:0.85rem;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:background .2s,transform .15s;}
+    .btn-discord:hover{background:var(--accent2);transform:translateY(-1px);}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 60px;max-width:1200px;margin:0 auto;}
+    .hero-badge{display:inline-block;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:999px;padding:4px 14px;font-size:0.75rem;font-weight:500;color:var(--accent2);margin-bottom:20px;}
+    .hero h1{font-size:2.5rem;font-weight:800;line-height:1.18;color:var(--white);margin-bottom:16px;}
+    .orange{color:var(--accent2);}
+    .hero-sub{font-size:0.9rem;color:var(--muted2);line-height:1.7;margin-bottom:30px;max-width:420px;}
+    .hero-btns{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    .btn-outline-sm{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:8px;padding:9px 20px;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
+    .btn-outline-sm:hover{border-color:var(--accent);color:var(--accent);}
+
+    /* DASHBOARD MOCKUP */
+    .dash-wrap{background:var(--surface2);border-radius:var(--radius-lg);border:1px solid var(--border2);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .dash-topbar{background:#111;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:10px 14px;}
+    .dash-topbar-logo{font-size:0.72rem;font-weight:700;color:var(--white);display:flex;align-items:center;gap:5px;}
+    .dash-topbar-links{display:flex;gap:12px;}
+    .dash-topbar-links a{font-size:0.65rem;color:var(--muted);}
+    .dash-topbar-links a.on{color:var(--white);}
+    .dash-topbar-right{display:flex;align-items:center;gap:7px;}
+    .dash-user-lbl{font-size:0.63rem;color:var(--muted);}
+    .dash-login-btn{background:var(--accent);color:white;font-size:0.63rem;padding:3px 9px;border-radius:4px;font-weight:600;}
+    .dash-content{display:flex;}
+    .dash-sidebar{width:108px;background:#1a1a1a;border-right:1px solid var(--border);padding:10px 0;}
+    .dash-side-item{padding:6px 10px;font-size:0.63rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;}
+    .dash-side-item.on{background:rgba(212,124,47,0.1);color:var(--accent2);}
+    .on-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+    .dash-main{flex:1;padding:12px;background:#1d1d1d;}
+    .dash-srv-name{font-size:0.76rem;font-weight:700;color:var(--white);margin-bottom:2px;}
+    .dash-srv-sub{font-size:0.6rem;color:var(--muted);margin-bottom:10px;}
+    .dash-sec-title{font-size:0.58rem;font-weight:700;color:var(--accent2);margin-bottom:7px;letter-spacing:.05em;text-transform:uppercase;}
+    .dash-sg{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;}
+    .dash-sc{background:var(--surface);border-radius:5px;padding:7px 5px;text-align:center;border:1px solid var(--border);}
+    .dash-sc-ic{font-size:11px;margin-bottom:2px;}
+    .dash-sc-n{font-size:0.82rem;font-weight:800;color:var(--white);}
+    .dash-sc-l{font-size:0.53rem;color:var(--muted);}
+    .dash-sg2{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;}
+    .dash-sc2{background:var(--surface);border-radius:5px;padding:7px 5px;border:1px solid var(--border);}
+    .dash-sc2-l{font-size:0.52rem;color:var(--muted);margin-bottom:1px;}
+    .dash-sc2-n{font-size:0.8rem;font-weight:700;color:var(--white);}
+
+    /* ABOUT */
+    .about{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:70px 60px;text-align:center;}
+    .about h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:14px;}
+    .about > p{font-size:0.88rem;color:var(--muted2);max-width:620px;margin:0 auto 10px;line-height:1.7;}
+    .about > p strong{color:var(--white);font-weight:600;}
+    .about-links{display:flex;justify-content:center;gap:10px;margin-top:22px;flex-wrap:wrap;}
+    .about-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--border2);border-radius:999px;padding:6px 15px;font-size:0.77rem;color:var(--muted2);cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
+    .about-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .about-btn .ic{color:var(--accent);}
+
+    /* STATS */
+    .stats{padding:60px;background:var(--bg2);}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1100px;margin:0 auto;}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 18px;text-align:center;}
+    .stat-ic{font-size:1.3rem;margin-bottom:8px;color:var(--accent);}
+    .stat-lbl{font-size:0.8rem;color:var(--muted2);margin-bottom:5px;}
+    .stat-num{font-size:1.9rem;font-weight:800;color:var(--accent);}
+    .stat-sub{font-size:0.72rem;color:var(--muted);margin-top:3px;}
+
+    /* IN ACTION */
+    .action{padding:70px 60px;background:var(--bg);}
+    .section-header-row{display:flex;align-items:baseline;margin-bottom:28px;}
+    .section-header-row h2{font-size:1.65rem;font-weight:800;color:var(--white);}
+    .section-header-row .sub{margin-left:auto;font-size:0.85rem;color:var(--muted2);}
+    .tabs{display:flex;gap:10px;margin-bottom:28px;}
+    .tab{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:0.83rem;font-weight:600;color:var(--muted2);cursor:pointer;font-family:inherit;transition:all .2s;}
+    .tab.on{background:var(--accent-dim);border-color:var(--accent-border);color:var(--accent2);}
+    .perspective{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+    .perspective h3{font-size:1.35rem;font-weight:800;color:var(--white);margin-bottom:12px;}
+    .perspective > div > p{font-size:0.875rem;color:var(--muted2);line-height:1.7;margin-bottom:18px;}
+    .ptags{display:flex;gap:8px;flex-wrap:wrap;}
+    .ptag{display:inline-flex;align-items:center;gap:5px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:999px;padding:5px 12px;font-size:0.73rem;color:var(--accent2);font-weight:500;}
+    .discord-mock{background:#2b2d31;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);}
+    .dmock-header{background:#1e1f22;padding:8px 14px;display:flex;align-items:center;gap:5px;font-size:0.72rem;color:#b5bac1;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.05);}
+    .dmock-msgs{padding:12px;display:flex;flex-direction:column;gap:12px;}
+    .dmsg{display:flex;gap:9px;}
+    .dav{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+    .dav.u{background:#5865f2;color:white;}
+    .dav.b{background:linear-gradient(135deg,#d4823a,#c45e1a);color:white;}
+    .dname{font-size:0.7rem;font-weight:700;margin-bottom:3px;}
+    .dname.u{color:#5865f2;}
+    .dname.b{color:var(--accent2);}
+    .dtext{font-size:0.77rem;color:#dcddde;line-height:1.5;}
+    .resolve-bar{background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:6px;padding:7px 11px;font-size:0.7rem;color:var(--green);display:flex;align-items:center;gap:5px;margin-top:6px;}
+
+    /* FEATURES */
+    .features{padding:80px 60px;background:var(--bg2);}
+    .features-hdr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:46px;}
+    .features-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);line-height:1.25;}
+    .features-hdr p{font-size:0.875rem;color:var(--muted2);padding-top:6px;}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+    .feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .25s,transform .2s;}
+    .feat-card:hover{border-color:var(--accent-border);transform:translateY(-2px);}
+    .feat-ic{width:40px;height:40px;border-radius:9px;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:13px;}
+    .feat-card h3{font-size:0.9rem;font-weight:700;color:var(--white);margin-bottom:7px;}
+    .feat-card p{font-size:0.81rem;color:var(--muted2);line-height:1.6;}
+
+    /* SETUP + PRICING two-col */
+    .setup-pricing{padding:80px 60px;background:var(--bg);}
+    .sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+
+    /* Setup steps */
+    .setup-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
+    .setup-hdr p{font-size:0.875rem;color:var(--muted2);}
+    .steps-list{margin-top:28px;display:flex;flex-direction:column;gap:0;}
+    .step-row{display:flex;gap:18px;}
+    .step-line-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+    .step-circle-num{width:34px;height:34px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--accent2);flex-shrink:0;}
+    .step-vline{width:2px;flex:1;background:linear-gradient(to bottom,var(--accent-border),transparent);min-height:44px;}
+    .step-icon-circle{width:24px;height:24px;border-radius:50%;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:11px;}
+    .step-body{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;flex:1;margin-bottom:0;}
+    .step-body h4{font-size:0.92rem;font-weight:700;color:var(--white);margin-bottom:5px;}
+    .step-body p{font-size:0.81rem;color:var(--muted2);line-height:1.6;}
+    .step-gap{height:10px;}
+
+    /* Pricing */
+    .pricing-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
+    .pricing-hdr p{font-size:0.875rem;color:var(--muted2);margin-bottom:26px;}
+    .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:relative;}
+    .price-card.pop{border-color:var(--accent);background:#222;}
+    .plan-badge-pill{display:inline-block;font-size:0.68rem;font-weight:700;border-radius:999px;padding:3px 11px;margin-bottom:14px;}
+    .pill-free{background:rgba(255,255,255,0.07);color:var(--muted2);border:1px solid var(--border2);}
+    .pill-pop{background:var(--accent);color:white;}
+    .plan-name{font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:5px;}
+    .plan-price{font-size:2.3rem;font-weight:900;color:var(--white);line-height:1;}
+    .plan-price sup{font-size:1rem;font-weight:500;vertical-align:super;}
+    .plan-price span{font-size:0.82rem;font-weight:400;color:var(--muted);}
+    .divider{border:none;border-top:1px solid var(--border);margin:18px 0;}
+    .pfeats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
+    .pfeats li{display:flex;align-items:center;gap:9px;font-size:0.82rem;}
+    .chk{color:var(--green);flex-shrink:0;font-size:0.82rem;}
+    .crs{color:var(--muted);flex-shrink:0;font-size:0.82rem;}
+    .crs+span{color:var(--muted);}
+    .btn-upgrade{width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;}
+    .btn-upgrade:hover{background:var(--accent2);}
+    .btn-getfree{width:100%;padding:12px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
+    .btn-getfree:hover{border-color:var(--accent);color:var(--accent);}
+    .money-back{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:12px;}
+
+    /* FAQ */
+    .faq{padding:80px 60px;background:var(--bg2);}
+    .faq-hdr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:38px;}
+    .faq-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);}
+    .faq-hdr p{font-size:0.875rem;color:var(--muted2);padding-top:6px;}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+    .faq-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+    .faq-card h4{font-size:0.9rem;font-weight:700;color:var(--white);margin-bottom:8px;}
+    .faq-card p{font-size:0.81rem;color:var(--muted2);line-height:1.65;}
+    .faq-card a{color:var(--accent2);}
+
+    /* TESTIMONIALS */
+    .testi{padding:80px 60px;background:var(--bg);}
+    .testi-hdr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:38px;}
+    .testi-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);}
+    .testi-hdr p{font-size:0.875rem;color:var(--muted2);padding-top:6px;}
+    .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+    .testi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;position:relative;}
+    .testi-quot{position:absolute;top:14px;left:16px;font-size:2.2rem;line-height:1;color:var(--accent-border);font-family:Georgia,serif;}
+    .testi-txt{font-size:0.82rem;color:var(--muted2);line-height:1.7;margin-bottom:18px;padding-top:10px;}
+    .testi-name{font-size:0.86rem;font-weight:700;color:var(--white);}
+    .testi-role{font-size:0.76rem;color:var(--muted);}
+
+    /* COMPLETE */
+    .complete{padding:60px;background:var(--surface);border-top:1px solid var(--border);}
+    .complete-inner{max-width:850px;}
+    .complete-inner h2{font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:14px;}
+    .complete-inner > p{font-size:0.86rem;color:var(--muted2);line-height:1.7;margin-bottom:11px;}
+    .complete-inner > p strong{color:var(--text);}
+    .checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:22px;}
+    .chk-item{display:flex;align-items:center;gap:7px;font-size:0.82rem;color:var(--muted2);}
+    .chk-item .c{color:var(--accent2);}
+
+    /* FOOTER */
+    footer{background:#111;border-top:1px solid var(--border);padding:44px 60px 26px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:34px;}
+    .footer-brand p{font-size:0.8rem;color:var(--muted);margin-top:9px;max-width:250px;line-height:1.6;}
+    .footer-col h4{font-size:0.76rem;font-weight:700;color:var(--white);margin-bottom:13px;letter-spacing:.08em;text-transform:uppercase;}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+    .footer-col ul li a{font-size:0.8rem;color:var(--muted);transition:color .2s;}
+    .footer-col ul li a:hover{color:var(--white);}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:18px;text-align:center;font-size:0.76rem;color:var(--muted);}
+
+    @media(max-width:900px){
+      nav{padding:0 20px;}
+      .nav-links{display:none;}
+      .hero,.about,.stats,.action,.features,.setup-pricing,.faq,.testi,.complete,footer{padding:48px 22px;}
+      .hero,.sp-grid,.features-hdr,.faq-hdr,.testi-hdr,.feat-grid,.testi-grid,.faq-grid,.pricing-grid,.stats-grid,.checklist{grid-template-columns:1fr;}
+      .perspective{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-box">🤖</div>
+    AI Ticket Bot
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#pricing">Premium</a></li>
+    <li><a href="#">Docs</a></li>
+  </ul>
+  <button class="btn-discord">
+    <svg width="15" height="12" viewBox="0 0 24 18" fill="currentColor"><path d="M20.317 1.492a19.825 19.825 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.284 18.284 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037 19.77 19.77 0 00-4.885 1.515.07.07 0 00-.032.027C.533 6.093-.32 10.584.099 15.02a.082.082 0 00.031.055 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994.076-.156.041-.34-.041-.106a13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.34 12.34 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.834 19.834 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+    Login with Discord
+  </button>
+</nav>
+
+<!-- HERO -->
+<div style="background:var(--bg);">
+  <div class="hero">
+    <div>
+      <div class="hero-badge">AI-Powered Discord Bot</div>
+      <h1>AI Ticket <span class="orange">Bot for<br>Discord</span> Servers</h1>
+      <p class="hero-sub">Automate your server's support with our AI-powered ticket system that handles routine inquiries and helps staff manage complex issues efficiently. Free tier available!</p>
+      <div class="hero-btns">
+        <button class="btn-discord">
+          <svg width="15" height="12" viewBox="0 0 24 18" fill="currentColor"><path d="M20.317 1.492a19.825 19.825 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.284 18.284 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037 19.77 19.77 0 00-4.885 1.515.07.07 0 00-.032.027C.533 6.093-.32 10.584.099 15.02a.082.082 0 00.031.055 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994.076-.156.041-.34-.041-.106a13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.34 12.34 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.834 19.834 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/></svg>
+          Login with Discord
+        </button>
+        <button class="btn-outline-sm">📄 Documentation</button>
+      </div>
+    </div>
+    <!-- Dashboard mockup -->
+    <div class="dash-wrap">
+      <div class="dash-topbar">
+        <div class="dash-topbar-logo">🤖 AI Ticket Bot</div>
+        <div class="dash-topbar-links">
+          <a href="#" class="on">Home</a><a href="#">Premium</a><a href="#">Docs</a><a href="#">Dashboard</a>
+        </div>
+        <div class="dash-topbar-right">
+          <span class="dash-user-lbl">WoRaXd8f ▾</span>
+          <span class="dash-login-btn">Login</span>
+        </div>
+      </div>
+      <div class="dash-content">
+        <div class="dash-sidebar">
+          <div class="dash-side-item">⚙ Setup Config</div>
+          <div class="dash-side-item on"><div class="on-dot"></div> Discord</div>
+          <div class="dash-side-item">🎫 Ticket Panel</div>
+          <div class="dash-side-item">⚙ AI Settings</div>
+          <div class="dash-side-item">👤 User Blacklist</div>
+          <div class="dash-side-item">📋 Waiting List</div>
+          <div class="dash-side-item">🤖 AI Management</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-srv-name">🟠 test</div>
+          <div class="dash-srv-sub">Manage your Discord server</div>
+          <div class="dash-sec-title">Server Overview</div>
+          <div class="dash-sg">
+            <div class="dash-sc"><div class="dash-sc-ic">👥</div><div class="dash-sc-n">4</div><div class="dash-sc-l">Members</div></div>
+            <div class="dash-sc"><div class="dash-sc-ic">🟢</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Online</div></div>
+            <div class="dash-sc"><div class="dash-sc-ic">🎭</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Roles</div></div>
+            <div class="dash-sc"><div class="dash-sc-ic">💬</div><div class="dash-sc-n">5</div><div class="dash-sc-l">Bots</div></div>
+          </div>
+          <div class="dash-sg2">
+            <div class="dash-sc2"><div class="dash-sc2-l">Categories</div><div class="dash-sc2-n">1</div></div>
+            <div class="dash-sc2"><div class="dash-sc2-l">Channels</div><div class="dash-sc2-n">9</div></div>
+            <div class="dash-sc2"><div class="dash-sc2-l">Total Handled</div><div class="dash-sc2-n">6</div></div>
+            <div class="dash-sc2"><div class="dash-sc2-l">Active Queues</div><div class="dash-sc2-n">0</div></div>
+          </div>
+          <div style="margin-top:9px;font-size:0.58rem;font-weight:700;color:var(--accent2);">Ticket Statistics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="about">
+  <h2>The Best Discord Ticket <span class="orange">Bot with AI Support</span></h2>
+  <p>Looking for a reliable <strong>ticket bot for your Discord server</strong>? AI Ticket Bot provides intelligent ticket management with automated AI responses, custom ticket panels, and seamless staff integration — everything you need for efficient Discord support. Unlike traditional Discord bots, our AI-powered solution can understand and respond to your users 24/7, even when your team is offline.</p>
+  <div class="about-links">
+    <button class="about-btn"><span class="ic">⚡</span> Discord Ticket Setup Guide</button>
+    <button class="about-btn"><span class="ic">🤖</span> AI Support Features</button>
+    <button class="about-btn"><span class="ic">🎫</span> Ticket Bot Commands</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num">2,776</div><div class="stat-sub">Discord servers using our bot</div></div>
+    <div class="stat-card"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num">144,731</div><div class="stat-sub">Tickets resolved automatically</div></div>
+    <div class="stat-card"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num">258</div><div class="stat-sub">Servers with AI automation</div></div>
+    <div class="stat-card"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num">4s</div><div class="stat-sub">Lightning-fast AI responses</div></div>
+  </div>
+</div>
+
+<!-- IN ACTION -->
+<div class="action">
+  <div class="section-header-row">
+    <h2>See AI Ticket <span class="orange">Bot in Action</span></h2>
+    <span class="sub">Experience how our AI handles support tickets</span>
+  </div>
+  <div class="tabs">
+    <button class="tab on">👤 User View</button>
+    <button class="tab">🛡 Staff View</button>
+  </div>
+  <div class="perspective">
+    <div>
+      <h3>From the User's <span class="orange">Perspective</span></h3>
+      <p>Your members get instant, accurate responses 24/7. The AI understands context, provides helpful solutions, and escalates complex issues to your team when needed.</p>
+      <div class="ptags">
+        <span class="ptag">⚡ Instant Responses</span>
+        <span class="ptag">🧠 Context Aware</span>
+        <span class="ptag">❤️ User Friendly</span>
+      </div>
+    </div>
+    <div class="discord-mock">
+      <div class="dmock-header"><span style="color:#b5bac1;">#</span> ticket-0042</div>
+      <div class="dmock-msgs">
+        <div class="dmsg">
+          <div class="dav u">U</div>
+          <div><div class="dname u">User#1234</div><div class="dtext">Hi, I need help with my purchase. The download link isn't working.</div></div>
+        </div>
+        <div class="dmsg">
+          <div class="dav b">🤖</div>
+          <div><div class="dname b">AI Ticket Bot</div><div class="dtext">Hello! I can help with that. Download links expire after 24 hours. Please check your email for a new link. If the issue persists, I'll escalate this to our support team right away!</div></div>
+        </div>
+        <div class="dmsg">
+          <div class="dav u">U</div>
+          <div><div class="dname u">User#1234</div><div class="dtext">That worked, thank you!</div></div>
+        </div>
+        <div class="resolve-bar">✅ Ticket resolved automatically by AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features" id="features">
+  <div class="features-hdr">
+    <h2>Powerful <span class="orange">Features</span> for Discord<br>Communities</h2>
+    <p>Everything you need to provide exceptional support</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-ic">🤖</div><h3>AI-Powered Responses</h3><p>Our advanced AI understands user queries and provides instant, accurate responses based on your server's knowledge base.</p></div>
+    <div class="feat-card"><div class="feat-ic">🎫</div><h3>Custom Ticket Panels</h3><p>Create beautiful, custom ticket panels with categories, buttons, and dropdowns tailored to your server's needs.</p></div>
+    <div class="feat-card"><div class="feat-ic">📊</div><h3>Advanced Analytics</h3><p>Track ticket volumes, response times, AI performance, and staff efficiency with comprehensive analytics dashboards.</p></div>
+    <div class="feat-card"><div class="feat-ic">👥</div><h3>Staff Management</h3><p>Assign roles, set permissions, and manage your support team with powerful staff management tools.</p></div>
+    <div class="feat-card"><div class="feat-ic">🕐</div><h3>24/7 Availability</h3><p>Your AI assistant never sleeps. Provide round-the-clock support even when your team is offline.</p></div>
+    <div class="feat-card"><div class="feat-ic">🔒</div><h3>Secure & Private</h3><p>Enterprise-grade security with encrypted data storage and privacy-first design. Your data stays safe.</p></div>
+  </div>
+</div>
+
+<!-- SETUP + PRICING -->
+<div class="setup-pricing" id="setup">
+  <div class="sp-grid">
+    <!-- Setup -->
+    <div>
+      <div class="setup-hdr">
+        <h2>Get Started <span class="orange">in Minutes</span></h2>
+        <p>Simple setup process to get your AI ticket system running</p>
+      </div>
+      <div class="steps-list">
+        <!-- 1 -->
+        <div class="step-row">
+          <div class="step-line-col">
+            <div class="step-circle-num">1</div>
+            <div class="step-vline"></div>
+            <div class="step-icon-circle">💬</div>
+          </div>
+          <div style="flex:1;padding-bottom:14px;">
+            <div class="step-body">
+              <h4>Add Bot to Server</h4>
+              <p>Click the invite link and select your Discord server from the dropdown menu.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-gap"></div>
+        <!-- 2 -->
+        <div class="step-row">
+          <div class="step-line-col">
+            <div class="step-circle-num">2</div>
+            <div class="step-vline"></div>
+            <div class="step-icon-circle">⚙️</div>
+          </div>
+          <div style="flex:1;padding-bottom:14px;">
+            <div class="step-body">
+              <h4>Configure Settings</h4>
+              <p>Use our intuitive dashboard to set up ticket categories, AI responses, and staff roles.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-gap"></div>
+        <!-- 3 -->
+        <div class="step-row">
+          <div class="step-line-col">
+            <div class="step-circle-num">3</div>
+          </div>
+          <div style="flex:1;">
+            <div class="step-body">
+              <h4>Start Supporting Users</h4>
+              <p>That's it! Your AI-powered ticket system is ready to handle support requests 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pricing -->
+    <div id="pricing">
+      <div class="pricing-hdr">
+        <h2>Simple, Transparent <span class="orange">Pricing</span></h2>
+        <p>Choose the plan that fits your server's needs</p>
+      </div>
+      <div class="pricing-grid">
+        <!-- Free -->
+        <div class="price-card">
+          <div class="plan-badge-pill pill-free">Free Forever</div>
+          <div class="plan-name">Free</div>
+          <div class="plan-price"><sup>$</sup>0<span>/month</span></div>
+          <hr class="divider">
+          <ul class="pfeats">
+            <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
+            <li><span class="chk">✓</span><span>AI Assistant</span></li>
+            <li><span class="chk">✓</span><span>Public AI Channel</span></li>
+            <li><span class="chk">✓</span><span>Basic AI Training</span></li>
+            <li><span class="crs">✕</span><span>Unlimited AI Tickets</span></li>
+            <li><span class="crs">✕</span><span>Higher Tokens Limit</span></li>
+          </ul>
+          <button class="btn-getfree">Get Started Free</button>
+        </div>
+        <!-- Premium -->
+        <div class="price-card pop">
+          <div class="plan-badge-pill pill-pop">Most Popular</div>
+          <div class="plan-name">Premium</div>
+          <div class="plan-price"><sup>$</sup>6.99<span>/month</span></div>
+          <hr class="divider">
+          <ul class="pfeats">
+            <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
+            <li><span class="chk">✓</span><span>Advanced AI Assistant</span></li>
+            <li><span class="chk">✓</span><span>Public AI Channel</span></li>
+            <li><span class="chk">✓</span><span>Enhanced AI Training</span></li>
+            <li><span class="chk">✓</span><span>Detailed analytics</span></li>
+            <li><span class="chk">✓</span><span>Response Templates</span></li>
+            <li><span class="chk">✓</span><span>Auto-close inactive tickets</span></li>
+            <li><span class="chk">✓</span><span>Smart Ticket Tagging</span></li>
+          </ul>
+          <button class="btn-upgrade">Upgrade to Premium</button>
+          <div class="money-back">30-day money-back guarantee</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq" id="faq">
+  <div class="faq-hdr">
+    <h2>Frequently <span class="orange">Asked</span> Questions</h2>
+    <p>Find answers to common questions about AI Ticket Bot</p>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-card"><h4>What is the AI Ticket Bot?</h4><p>An automated Discord ticket system with AI-powered support capabilities that helps manage customer inquiries efficiently and provide 24/7 support.</p></div>
+    <div class="faq-card"><h4>How much does premium cost?</h4><p>Premium subscription costs $6.99/month with a 30-day money-back guarantee. Try our free tier first to experience the basic features.</p></div>
+    <div class="faq-card"><h4>Can I customize Discord tickets?</h4><p>Yes! Use custom panels to configure ticket types and workflows to match your server's needs. Premium users also get AI customization options.</p></div>
+    <div class="faq-card"><h4>How does the AI ticket system work?</h4><p>Our AI understands user queries and provides instant responses based on your server's knowledge base. Complex issues are automatically escalated to your staff team.</p></div>
+    <div class="faq-card"><h4>How do I report bugs?</h4><p>Visit our <a href="#">Support Server</a> to report any issues. Our team is always ready to help!</p></div>
+    <div class="faq-card"><h4>Is there a limit to tickets?</h4><p>No, both our free and premium plans offer unlimited tickets. Premium adds enhanced management features like auto-closing inactive tickets.</p></div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testi" id="testimonials">
+  <div class="testi-hdr">
+    <h2>What Discord <span class="orange">Server Owners</span> Say</h2>
+    <p>Join hundreds of satisfied server administrators</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-quot">"</div>
+      <p class="testi-txt">"AI Ticket Bot reduced our support response times by 90%. Our FiveM players get instant help even when our staff is offline. Best Discord ticket solution we've tried!"</p>
+      <div class="testi-name">Jake Rodriguez (jakerp)</div>
+      <div class="testi-role">FiveM Development Server Owner</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quot">"</div>
+      <p class="testi-txt">"We used to spend hours answering the same PC optimization questions. Now the AI handles 70% of our tickets automatically. Setup was incredibly easy too!"</p>
+      <div class="testi-name">Sarah Chen (techsupport_sarah)</div>
+      <div class="testi-role">PC Optimization Services Admin</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-quot">"</div>
+      <p class="testi-txt">"The ability to train the AI with custom responses for our specific gaming community has been a game-changer. Our Discord members get instant, accurate information 24/7."</p>
+      <div class="testi-name">Mike Thompson (GamingMike)</div>
+      <div class="testi-role">Gaming Community Founder</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETE SOLUTION -->
+<div class="complete">
+  <div class="complete-inner">
+    <h2>The Complete Discord Ticket <span class="orange">Management Solution</span></h2>
+    <p>AI Ticket Bot is designed to revolutionize how Discord communities handle support. From gaming servers to education communities, NFT projects to developer groups, our <strong>Discord ticket bot</strong> provides the tools you need to deliver exceptional support experiences.</p>
+    <p>Unlike other Discord bots, our <strong>AI-powered ticket system</strong> intelligently handles inquiries, learns from interactions, and gets smarter over time. With both free and premium tiers, servers of all sizes can benefit from automated support.</p>
+    <div class="checklist">
+      <div class="chk-item"><span class="c">✓</span> Easy setup process</div>
+      <div class="chk-item"><span class="c">✓</span> 24/7 AI responses</div>
+      <div class="chk-item"><span class="c">✓</span> Customizable ticket panels</div>
+      <div class="chk-item"><span class="c">✓</span> Staff management tools</div>
+      <div class="chk-item"><span class="c">✓</span> Comprehensive analytics</div>
+      <div class="chk-item"><span class="c">✓</span> Free tier available</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo"><div class="logo-box">🤖</div> AI Ticket Bot</div>
+      <p>Discord AI-powered ticket system that helps you manage support requests efficiently.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <ul><li><a href="#">Support Server</a></li><li><a href="#">Add to Discord</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 AI Ticket Bot. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
