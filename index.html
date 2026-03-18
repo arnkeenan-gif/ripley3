@@ -32,8 +32,12 @@
     .btn-discord{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:white;padding:9px 20px;border-radius:8px;font-size:0.85rem;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:background .2s,transform .15s;}
     .btn-discord:hover{background:var(--accent2);transform:translateY(-1px);}
 
-    /* HERO */
+    /* HERO FADE-IN */
     .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 60px;max-width:1200px;margin:0 auto;}
+    .hero-text{opacity:0;transform:translateY(24px);animation:heroFadeUp 0.7s ease forwards;}
+    .hero-mockup{opacity:0;transform:translateY(24px);animation:heroFadeUp 0.7s ease 0.25s forwards;}
+    @keyframes heroFadeUp{to{opacity:1;transform:translateY(0);}}
+
     .hero-badge{display:inline-block;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:999px;padding:4px 14px;font-size:0.75rem;font-weight:500;color:var(--accent2);margin-bottom:20px;}
     .hero h1{font-size:2.5rem;font-weight:800;line-height:1.18;color:var(--white);margin-bottom:16px;}
     .orange{color:var(--accent2);}
@@ -70,6 +74,13 @@
     .dash-sc2{background:var(--surface);border-radius:5px;padding:7px 5px;border:1px solid var(--border);}
     .dash-sc2-l{font-size:0.52rem;color:var(--muted);margin-bottom:1px;}
     .dash-sc2-n{font-size:0.8rem;font-weight:700;color:var(--white);}
+
+    /* SCROLL ANIMATIONS */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-delay-1{transition-delay:0.1s;}
+    .reveal-delay-2{transition-delay:0.2s;}
+    .reveal-delay-3{transition-delay:0.3s;}
 
     /* ABOUT */
     .about{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:70px 60px;text-align:center;}
@@ -246,7 +257,7 @@
 <!-- HERO -->
 <div style="background:var(--bg);">
   <div class="hero">
-    <div>
+    <div class="hero-text">
       <div class="hero-badge">AI-Powered Discord Bot</div>
       <h1>AI Ticket <span class="orange">Bot for<br>Discord</span> Servers</h1>
       <p class="hero-sub">Automate your server's support with our AI-powered ticket system that handles routine inquiries and helps staff manage complex issues efficiently. Free tier available!</p>
@@ -259,44 +270,46 @@
       </div>
     </div>
     <!-- Dashboard mockup -->
-    <div class="dash-wrap">
-      <div class="dash-topbar">
-        <div class="dash-topbar-logo">🤖 AI Ticket Bot</div>
-        <div class="dash-topbar-links">
-          <a href="#" class="on">Home</a><a href="#">Premium</a><a href="#">Docs</a><a href="#">Dashboard</a>
-        </div>
-        <div class="dash-topbar-right">
-          <span class="dash-user-lbl">WoRaXd8f ▾</span>
-          <span class="dash-login-btn">Login</span>
-        </div>
-      </div>
-      <div class="dash-content">
-        <div class="dash-sidebar">
-          <div class="dash-side-item">⚙ Setup Config</div>
-          <div class="dash-side-item on"><div class="on-dot"></div> Discord</div>
-          <div class="dash-side-item">🎫 Ticket Panel</div>
-          <div class="dash-side-item">⚙ AI Settings</div>
-          <div class="dash-side-item">👤 User Blacklist</div>
-          <div class="dash-side-item">📋 Waiting List</div>
-          <div class="dash-side-item">🤖 AI Management</div>
-        </div>
-        <div class="dash-main">
-          <div class="dash-srv-name">🟠 test</div>
-          <div class="dash-srv-sub">Manage your Discord server</div>
-          <div class="dash-sec-title">Server Overview</div>
-          <div class="dash-sg">
-            <div class="dash-sc"><div class="dash-sc-ic">👥</div><div class="dash-sc-n">4</div><div class="dash-sc-l">Members</div></div>
-            <div class="dash-sc"><div class="dash-sc-ic">🟢</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Online</div></div>
-            <div class="dash-sc"><div class="dash-sc-ic">🎭</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Roles</div></div>
-            <div class="dash-sc"><div class="dash-sc-ic">💬</div><div class="dash-sc-n">5</div><div class="dash-sc-l">Bots</div></div>
+    <div class="hero-mockup">
+      <div class="dash-wrap">
+        <div class="dash-topbar">
+          <div class="dash-topbar-logo">🤖 AI Ticket Bot</div>
+          <div class="dash-topbar-links">
+            <a href="#" class="on">Home</a><a href="#">Premium</a><a href="#">Docs</a><a href="#">Dashboard</a>
           </div>
-          <div class="dash-sg2">
-            <div class="dash-sc2"><div class="dash-sc2-l">Categories</div><div class="dash-sc2-n">1</div></div>
-            <div class="dash-sc2"><div class="dash-sc2-l">Channels</div><div class="dash-sc2-n">9</div></div>
-            <div class="dash-sc2"><div class="dash-sc2-l">Total Handled</div><div class="dash-sc2-n">6</div></div>
-            <div class="dash-sc2"><div class="dash-sc2-l">Active Queues</div><div class="dash-sc2-n">0</div></div>
+          <div class="dash-topbar-right">
+            <span class="dash-user-lbl">WoRaXd8f ▾</span>
+            <span class="dash-login-btn">Login</span>
           </div>
-          <div style="margin-top:9px;font-size:0.58rem;font-weight:700;color:var(--accent2);">Ticket Statistics</div>
+        </div>
+        <div class="dash-content">
+          <div class="dash-sidebar">
+            <div class="dash-side-item">⚙ Setup Config</div>
+            <div class="dash-side-item on"><div class="on-dot"></div> Discord</div>
+            <div class="dash-side-item">🎫 Ticket Panel</div>
+            <div class="dash-side-item">⚙ AI Settings</div>
+            <div class="dash-side-item">👤 User Blacklist</div>
+            <div class="dash-side-item">📋 Waiting List</div>
+            <div class="dash-side-item">🤖 AI Management</div>
+          </div>
+          <div class="dash-main">
+            <div class="dash-srv-name">🟠 test</div>
+            <div class="dash-srv-sub">Manage your Discord server</div>
+            <div class="dash-sec-title">Server Overview</div>
+            <div class="dash-sg">
+              <div class="dash-sc"><div class="dash-sc-ic">👥</div><div class="dash-sc-n">4</div><div class="dash-sc-l">Members</div></div>
+              <div class="dash-sc"><div class="dash-sc-ic">🟢</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Online</div></div>
+              <div class="dash-sc"><div class="dash-sc-ic">🎭</div><div class="dash-sc-n">2</div><div class="dash-sc-l">Roles</div></div>
+              <div class="dash-sc"><div class="dash-sc-ic">💬</div><div class="dash-sc-n">5</div><div class="dash-sc-l">Bots</div></div>
+            </div>
+            <div class="dash-sg2">
+              <div class="dash-sc2"><div class="dash-sc2-l">Categories</div><div class="dash-sc2-n">1</div></div>
+              <div class="dash-sc2"><div class="dash-sc2-l">Channels</div><div class="dash-sc2-n">9</div></div>
+              <div class="dash-sc2"><div class="dash-sc2-l">Total Handled</div><div class="dash-sc2-n">6</div></div>
+              <div class="dash-sc2"><div class="dash-sc2-l">Active Queues</div><div class="dash-sc2-n">0</div></div>
+            </div>
+            <div style="margin-top:9px;font-size:0.58rem;font-weight:700;color:var(--accent2);">Ticket Statistics</div>
+          </div>
         </div>
       </div>
     </div>
@@ -305,9 +318,9 @@
 
 <!-- ABOUT -->
 <div class="about">
-  <h2>The Best Discord Ticket <span class="orange">Bot with AI Support</span></h2>
-  <p>Looking for a reliable <strong>ticket bot for your Discord server</strong>? AI Ticket Bot provides intelligent ticket management with automated AI responses, custom ticket panels, and seamless staff integration — everything you need for efficient Discord support. Unlike traditional Discord bots, our AI-powered solution can understand and respond to your users 24/7, even when your team is offline.</p>
-  <div class="about-links">
+  <h2 class="reveal">The Best Discord Ticket <span class="orange">Bot with AI Support</span></h2>
+  <p class="reveal reveal-delay-1">Looking for a reliable <strong>ticket bot for your Discord server</strong>? AI Ticket Bot provides intelligent ticket management with automated AI responses, custom ticket panels, and seamless staff integration — everything you need for efficient Discord support. Unlike traditional Discord bots, our AI-powered solution can understand and respond to your users 24/7, even when your team is offline.</p>
+  <div class="about-links reveal reveal-delay-2">
     <button class="about-btn"><span class="ic">⚡</span> Discord Ticket Setup Guide</button>
     <button class="about-btn"><span class="ic">🤖</span> AI Support Features</button>
     <button class="about-btn"><span class="ic">🎫</span> Ticket Bot Commands</button>
@@ -317,24 +330,24 @@
 <!-- STATS -->
 <div class="stats">
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num" data-target="2776">0</div><div class="stat-sub">Discord servers using our bot</div></div>
-    <div class="stat-card"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num" data-target="144731">0</div><div class="stat-sub">Tickets resolved automatically</div></div>
-    <div class="stat-card"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num" data-target="258">0</div><div class="stat-sub">Servers with AI automation</div></div>
-    <div class="stat-card"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num" data-target="4" data-suffix="s">0</div><div class="stat-sub">Lightning-fast AI responses</div></div>
+    <div class="stat-card reveal"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num" data-target="2776">0</div><div class="stat-sub">Discord servers using our bot</div></div>
+    <div class="stat-card reveal reveal-delay-1"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num" data-target="144731">0</div><div class="stat-sub">Tickets resolved automatically</div></div>
+    <div class="stat-card reveal reveal-delay-2"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num" data-target="258">0</div><div class="stat-sub">Servers with AI automation</div></div>
+    <div class="stat-card reveal reveal-delay-3"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num" data-target="4" data-suffix="s">0</div><div class="stat-sub">Lightning-fast AI responses</div></div>
   </div>
 </div>
 
 <!-- IN ACTION -->
 <div class="action">
-  <div class="section-header-row">
+  <div class="section-header-row reveal">
     <h2>See AI Ticket <span class="orange">Bot in Action</span></h2>
     <span class="sub">Experience how our AI handles support tickets</span>
   </div>
-  <div class="tabs">
+  <div class="tabs reveal reveal-delay-1">
     <button class="tab on">👤 User View</button>
     <button class="tab">🛡 Staff View</button>
   </div>
-  <div class="perspective">
+  <div class="perspective reveal reveal-delay-2">
     <div>
       <h3>From the User's <span class="orange">Perspective</span></h3>
       <p>Your members get instant, accurate responses 24/7. The AI understands context, provides helpful solutions, and escalates complex issues to your team when needed.</p>
@@ -367,31 +380,29 @@
 
 <!-- FEATURES -->
 <div class="features" id="features">
-  <div class="features-hdr">
+  <div class="features-hdr reveal">
     <h2>Powerful <span class="orange">Features</span> for Discord<br>Communities</h2>
     <p>Everything you need to provide exceptional support</p>
   </div>
   <div class="feat-grid">
-    <div class="feat-card"><div class="feat-ic">🤖</div><h3>AI-Powered Responses</h3><p>Our advanced AI understands user queries and provides instant, accurate responses based on your server's knowledge base.</p></div>
-    <div class="feat-card"><div class="feat-ic">🎫</div><h3>Custom Ticket Panels</h3><p>Create beautiful, custom ticket panels with categories, buttons, and dropdowns tailored to your server's needs.</p></div>
-    <div class="feat-card"><div class="feat-ic">📊</div><h3>Advanced Analytics</h3><p>Track ticket volumes, response times, AI performance, and staff efficiency with comprehensive analytics dashboards.</p></div>
-    <div class="feat-card"><div class="feat-ic">👥</div><h3>Staff Management</h3><p>Assign roles, set permissions, and manage your support team with powerful staff management tools.</p></div>
-    <div class="feat-card"><div class="feat-ic">🕐</div><h3>24/7 Availability</h3><p>Your AI assistant never sleeps. Provide round-the-clock support even when your team is offline.</p></div>
-    <div class="feat-card"><div class="feat-ic">🔒</div><h3>Secure & Private</h3><p>Enterprise-grade security with encrypted data storage and privacy-first design. Your data stays safe.</p></div>
+    <div class="feat-card reveal"><div class="feat-ic">🤖</div><h3>AI-Powered Responses</h3><p>Our advanced AI understands user queries and provides instant, accurate responses based on your server's knowledge base.</p></div>
+    <div class="feat-card reveal reveal-delay-1"><div class="feat-ic">🎫</div><h3>Custom Ticket Panels</h3><p>Create beautiful, custom ticket panels with categories, buttons, and dropdowns tailored to your server's needs.</p></div>
+    <div class="feat-card reveal reveal-delay-2"><div class="feat-ic">📊</div><h3>Advanced Analytics</h3><p>Track ticket volumes, response times, AI performance, and staff efficiency with comprehensive analytics dashboards.</p></div>
+    <div class="feat-card reveal"><div class="feat-ic">👥</div><h3>Staff Management</h3><p>Assign roles, set permissions, and manage your support team with powerful staff management tools.</p></div>
+    <div class="feat-card reveal reveal-delay-1"><div class="feat-ic">🕐</div><h3>24/7 Availability</h3><p>Your AI assistant never sleeps. Provide round-the-clock support even when your team is offline.</p></div>
+    <div class="feat-card reveal reveal-delay-2"><div class="feat-ic">🔒</div><h3>Secure & Private</h3><p>Enterprise-grade security with encrypted data storage and privacy-first design. Your data stays safe.</p></div>
   </div>
 </div>
 
 <!-- SETUP + PRICING -->
 <div class="setup-pricing" id="setup">
   <div class="sp-grid">
-    <!-- Setup -->
-    <div>
+    <div class="reveal">
       <div class="setup-hdr">
         <h2>Get Started <span class="orange">in Minutes</span></h2>
         <p>Simple setup process to get your AI ticket system running</p>
       </div>
       <div class="steps-list">
-        <!-- 1 -->
         <div class="step-row">
           <div class="step-line-col">
             <div class="step-circle-num">1</div>
@@ -406,7 +417,6 @@
           </div>
         </div>
         <div class="step-gap"></div>
-        <!-- 2 -->
         <div class="step-row">
           <div class="step-line-col">
             <div class="step-circle-num">2</div>
@@ -421,7 +431,6 @@
           </div>
         </div>
         <div class="step-gap"></div>
-        <!-- 3 -->
         <div class="step-row">
           <div class="step-line-col">
             <div class="step-circle-num">3</div>
@@ -435,14 +444,12 @@
         </div>
       </div>
     </div>
-    <!-- Pricing -->
-    <div id="pricing">
+    <div id="pricing" class="reveal reveal-delay-2">
       <div class="pricing-hdr">
         <h2>Simple, Transparent <span class="orange">Pricing</span></h2>
         <p>Choose the plan that fits your server's needs</p>
       </div>
       <div class="pricing-grid">
-        <!-- Free -->
         <div class="price-card">
           <div class="plan-badge-pill pill-free">Free Forever</div>
           <div class="plan-name">Free</div>
@@ -458,7 +465,6 @@
           </ul>
           <button class="btn-getfree">Get Started Free</button>
         </div>
-        <!-- Premium -->
         <div class="price-card pop">
           <div class="plan-badge-pill pill-pop">Most Popular</div>
           <div class="plan-name">Premium</div>
@@ -484,40 +490,40 @@
 
 <!-- FAQ -->
 <div class="faq" id="faq">
-  <div class="faq-hdr">
+  <div class="faq-hdr reveal">
     <h2>Frequently <span class="orange">Asked</span> Questions</h2>
     <p>Find answers to common questions about AI Ticket Bot</p>
   </div>
   <div class="faq-grid">
-    <div class="faq-card"><h4>What is the AI Ticket Bot?</h4><p>An automated Discord ticket system with AI-powered support capabilities that helps manage customer inquiries efficiently and provide 24/7 support.</p></div>
-    <div class="faq-card"><h4>How much does premium cost?</h4><p>Premium subscription costs $6.99/month with a 30-day money-back guarantee. Try our free tier first to experience the basic features.</p></div>
-    <div class="faq-card"><h4>Can I customize Discord tickets?</h4><p>Yes! Use custom panels to configure ticket types and workflows to match your server's needs. Premium users also get AI customization options.</p></div>
-    <div class="faq-card"><h4>How does the AI ticket system work?</h4><p>Our AI understands user queries and provides instant responses based on your server's knowledge base. Complex issues are automatically escalated to your staff team.</p></div>
-    <div class="faq-card"><h4>How do I report bugs?</h4><p>Visit our <a href="#">Support Server</a> to report any issues. Our team is always ready to help!</p></div>
-    <div class="faq-card"><h4>Is there a limit to tickets?</h4><p>No, both our free and premium plans offer unlimited tickets. Premium adds enhanced management features like auto-closing inactive tickets.</p></div>
+    <div class="faq-card reveal"><h4>What is the AI Ticket Bot?</h4><p>An automated Discord ticket system with AI-powered support capabilities that helps manage customer inquiries efficiently and provide 24/7 support.</p></div>
+    <div class="faq-card reveal reveal-delay-1"><h4>How much does premium cost?</h4><p>Premium subscription costs $6.99/month with a 30-day money-back guarantee. Try our free tier first to experience the basic features.</p></div>
+    <div class="faq-card reveal"><h4>Can I customize Discord tickets?</h4><p>Yes! Use custom panels to configure ticket types and workflows to match your server's needs. Premium users also get AI customization options.</p></div>
+    <div class="faq-card reveal reveal-delay-1"><h4>How does the AI ticket system work?</h4><p>Our AI understands user queries and provides instant responses based on your server's knowledge base. Complex issues are automatically escalated to your staff team.</p></div>
+    <div class="faq-card reveal"><h4>How do I report bugs?</h4><p>Visit our <a href="#">Support Server</a> to report any issues. Our team is always ready to help!</p></div>
+    <div class="faq-card reveal reveal-delay-1"><h4>Is there a limit to tickets?</h4><p>No, both our free and premium plans offer unlimited tickets. Premium adds enhanced management features like auto-closing inactive tickets.</p></div>
   </div>
 </div>
 
 <!-- TESTIMONIALS -->
 <div class="testi" id="testimonials">
-  <div class="testi-hdr">
+  <div class="testi-hdr reveal">
     <h2>What Discord <span class="orange">Server Owners</span> Say</h2>
     <p>Join hundreds of satisfied server administrators</p>
   </div>
   <div class="testi-grid">
-    <div class="testi-card">
+    <div class="testi-card reveal">
       <div class="testi-quot">"</div>
       <p class="testi-txt">"AI Ticket Bot reduced our support response times by 90%. Our FiveM players get instant help even when our staff is offline. Best Discord ticket solution we've tried!"</p>
       <div class="testi-name">Jake Rodriguez (jakerp)</div>
       <div class="testi-role">FiveM Development Server Owner</div>
     </div>
-    <div class="testi-card">
+    <div class="testi-card reveal reveal-delay-1">
       <div class="testi-quot">"</div>
       <p class="testi-txt">"We used to spend hours answering the same PC optimization questions. Now the AI handles 70% of our tickets automatically. Setup was incredibly easy too!"</p>
       <div class="testi-name">Sarah Chen (techsupport_sarah)</div>
       <div class="testi-role">PC Optimization Services Admin</div>
     </div>
-    <div class="testi-card">
+    <div class="testi-card reveal reveal-delay-2">
       <div class="testi-quot">"</div>
       <p class="testi-txt">"The ability to train the AI with custom responses for our specific gaming community has been a game-changer. Our Discord members get instant, accurate information 24/7."</p>
       <div class="testi-name">Mike Thompson (GamingMike)</div>
@@ -528,7 +534,7 @@
 
 <!-- COMPLETE SOLUTION -->
 <div class="complete">
-  <div class="complete-inner">
+  <div class="complete-inner reveal">
     <h2>The Complete Discord Ticket <span class="orange">Management Solution</span></h2>
     <p>AI Ticket Bot is designed to revolutionize how Discord communities handle support. From gaming servers to education communities, NFT projects to developer groups, our <strong>Discord ticket bot</strong> provides the tools you need to deliver exceptional support experiences.</p>
     <p>Unlike other Discord bots, our <strong>AI-powered ticket system</strong> intelligently handles inquiries, learns from interactions, and gets smarter over time. With both free and premium tiers, servers of all sizes can benefit from automated support.</p>
@@ -563,8 +569,21 @@
 </footer>
 
 <script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // Count-up animation
   const counters = document.querySelectorAll('.stat-num');
-  const observer = new IntersectionObserver((entries) => {
+  const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
@@ -578,11 +597,11 @@
           if (current >= target) { current = target; clearInterval(timer); }
           el.textContent = Math.floor(current).toLocaleString() + suffix;
         }, 16);
-        observer.unobserve(el);
+        counterObserver.unobserve(el);
       }
     });
   }, { threshold: 0.3 });
-  counters.forEach(counter => observer.observe(counter));
+  counters.forEach(counter => counterObserver.observe(counter));
 </script>
 
 </body>
