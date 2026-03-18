@@ -188,11 +188,11 @@
     .testi-name{font-size:0.86rem;font-weight:700;color:var(--white);}
     .testi-role{font-size:0.76rem;color:var(--muted);}
     .complete{padding:60px;background:var(--surface);border-top:1px solid var(--border);}
-    .complete-inner{max-width:850px;}
+    .complete-inner{max-width:850px; margin: 0 auto; text-align: center;}
     .complete-inner h2{font-size:1.55rem;font-weight:800;color:var(--white);margin-bottom:14px;}
     .complete-inner > p{font-size:0.86rem;color:var(--muted2);line-height:1.7;margin-bottom:11px;}
     .complete-inner > p strong{color:var(--text);}
-    .checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:22px;}
+    .checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:22px; text-align:left;}
     .chk-item{display:flex;align-items:center;gap:7px;font-size:0.82rem;color:var(--muted2);}
     .chk-item .c{color:var(--accent2);}
     footer{background:#111;border-top:1px solid var(--border);padding:44px 60px 26px;}
@@ -477,7 +477,7 @@
 
 <div class="complete">
   <div class="complete-inner reveal">
-    <h2>The Complete Discord Ticket <span class="blue">Management Solution</span></h2>
+    <h2>The Complete <span class="blue">AI Ticket Support</span> Solution</h2>
     <p>Ripley Support is designed to revolutionize how Discord communities handle support. From gaming servers to education communities, NFT projects to developer groups, our <strong>Discord ticket bot</strong> provides the tools you need to deliver exceptional support experiences.</p>
     <p>Unlike other Discord bots, our <strong>AI-powered ticket system</strong> intelligently handles inquiries, learns from interactions, and gets smarter over time. With both free and premium tiers, servers of all sizes can benefit from automated support.</p>
     <div class="checklist">
@@ -513,6 +513,7 @@
 </footer>
 
 <script>
+  // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -521,14 +522,19 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
+  // Counters — ONLY start when the stat card scrolls into view
   const counters = document.querySelectorAll('.stat-num');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
+        // Prevent double-firing
+        if (el.dataset.counted) return;
+        el.dataset.counted = 'true';
         const target = +el.dataset.target;
         const suffix = el.dataset.suffix || '';
-        const step = target / (2000 / 16);
+        const duration = 2000;
+        const step = target / (duration / 16);
         let current = 0;
         const timer = setInterval(() => {
           current += step;
@@ -538,7 +544,7 @@
         counterObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.3 });
+  }, { threshold: 0.5 });
   counters.forEach(counter => counterObserver.observe(counter));
 </script>
 </body>
