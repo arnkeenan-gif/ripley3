@@ -12,8 +12,8 @@
     :root {
       --bg:#1a1a1a; --bg2:#1f1f1f; --surface:#252525; --surface2:#2a2a2a;
       --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.1);
-      --accent:#d47c2f; --accent2:#e8943a; --accent-dim:rgba(212,124,47,0.12);
-      --accent-border:rgba(212,124,47,0.35);
+      --accent:#1562A8; --accent2:#1a74c4; --accent-dim:rgba(21,98,168,0.12);
+      --accent-border:rgba(21,98,168,0.35);
       --text:#e0e0e0; --muted:#777; --muted2:#aaa; --white:#fff;
       --green:#4ade80; --red:#f87171;
       --radius:10px; --radius-lg:14px;
@@ -25,7 +25,7 @@
     /* NAV */
     nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:#111;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
     .nav-logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1rem;color:var(--white);}
-    .logo-box{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#d4823a,#c45e1a);display:flex;align-items:center;justify-content:center;font-size:16px;}
+    .logo-box{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#1562A8,#0e4a80);display:flex;align-items:center;justify-content:center;font-size:16px;}
     .nav-links{display:flex;align-items:center;gap:30px;list-style:none;}
     .nav-links a{font-size:0.875rem;font-weight:500;color:var(--muted2);transition:color .2s;}
     .nav-links a:hover{color:var(--white);}
@@ -40,7 +40,7 @@
 
     .hero-badge{display:inline-block;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:999px;padding:4px 14px;font-size:0.75rem;font-weight:500;color:var(--accent2);margin-bottom:20px;}
     .hero h1{font-size:2.5rem;font-weight:800;line-height:1.18;color:var(--white);margin-bottom:16px;}
-    .orange{color:var(--accent2);}
+    .blue{color:var(--accent2);}
     .hero-sub{font-size:0.9rem;color:var(--muted2);line-height:1.7;margin-bottom:30px;max-width:420px;}
     .hero-btns{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
     .btn-outline-sm{display:inline-flex;align-items:center;gap:7px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:8px;padding:9px 20px;font-size:0.85rem;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
@@ -59,7 +59,7 @@
     .dash-content{display:flex;}
     .dash-sidebar{width:108px;background:#1a1a1a;border-right:1px solid var(--border);padding:10px 0;}
     .dash-side-item{padding:6px 10px;font-size:0.63rem;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;}
-    .dash-side-item.on{background:rgba(212,124,47,0.1);color:var(--accent2);}
+    .dash-side-item.on{background:rgba(21,98,168,0.1);color:var(--accent2);}
     .on-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;}
     .dash-main{flex:1;padding:12px;background:#1d1d1d;}
     .dash-srv-name{font-size:0.76rem;font-weight:700;color:var(--white);margin-bottom:2px;}
@@ -120,7 +120,7 @@
     .dmsg{display:flex;gap:9px;}
     .dav{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
     .dav.u{background:#5865f2;color:white;}
-    .dav.b{background:linear-gradient(135deg,#d4823a,#c45e1a);color:white;}
+    .dav.b{background:linear-gradient(135deg,#1562A8,#0e4a80);color:white;}
     .dname{font-size:0.7rem;font-weight:700;margin-bottom:3px;}
     .dname.u{color:#5865f2;}
     .dname.b{color:var(--accent2);}
@@ -139,14 +139,45 @@
     .feat-card h3{font-size:0.9rem;font-weight:700;color:var(--white);margin-bottom:7px;}
     .feat-card p{font-size:0.81rem;color:var(--muted2);line-height:1.6;}
 
-    /* SETUP + PRICING two-col */
-    .setup-pricing{padding:80px 60px;background:var(--bg);}
-    .sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;}
+    /* PRICING */
+    .pricing-section{padding:80px 60px;background:var(--bg);}
+    .pricing-hdr{margin-bottom:36px;}
+    .pricing-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
+    .pricing-hdr p{font-size:0.875rem;color:var(--muted2);}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;}
+    .price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:relative;}
+    .price-card.pop{border-color:var(--accent);background:#1a1f26;}
+    .price-card.enterprise{border-color:rgba(139,92,246,0.5);background:#1e1b2e;}
+    .plan-badge-pill{display:inline-block;font-size:0.68rem;font-weight:700;border-radius:999px;padding:3px 11px;margin-bottom:14px;}
+    .pill-free{background:rgba(255,255,255,0.07);color:var(--muted2);border:1px solid var(--border2);}
+    .pill-pop{background:var(--accent);color:white;}
+    .pill-enterprise{background:rgba(139,92,246,0.2);color:#a78bfa;border:1px solid rgba(139,92,246,0.4);}
+    .plan-name{font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:5px;}
+    .plan-price{font-size:2.3rem;font-weight:900;color:var(--white);line-height:1;}
+    .plan-price sup{font-size:1rem;font-weight:500;vertical-align:super;}
+    .plan-price span{font-size:0.82rem;font-weight:400;color:var(--muted);}
+    .plan-desc{font-size:0.78rem;color:var(--muted2);margin-top:8px;line-height:1.5;}
+    .divider{border:none;border-top:1px solid var(--border);margin:18px 0;}
+    .pfeats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
+    .pfeats li{display:flex;align-items:center;gap:9px;font-size:0.82rem;}
+    .chk{color:var(--green);flex-shrink:0;font-size:0.82rem;}
+    .chk-purple{color:#a78bfa;flex-shrink:0;font-size:0.82rem;}
+    .crs{color:var(--muted);flex-shrink:0;font-size:0.82rem;}
+    .crs+span{color:var(--muted);}
+    .btn-upgrade{width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;}
+    .btn-upgrade:hover{background:var(--accent2);}
+    .btn-enterprise{width:100%;padding:12px;background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.4);border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,color .2s;}
+    .btn-enterprise:hover{background:rgba(139,92,246,0.3);color:#c4b5fd;}
+    .btn-getfree{width:100%;padding:12px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
+    .btn-getfree:hover{border-color:var(--accent);color:var(--accent);}
+    .money-back{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:12px;}
 
-    /* Setup steps */
+    /* SETUP */
+    .setup-section{padding:80px 60px;background:var(--bg2);}
+    .setup-hdr{margin-bottom:28px;}
     .setup-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
     .setup-hdr p{font-size:0.875rem;color:var(--muted2);}
-    .steps-list{margin-top:28px;display:flex;flex-direction:column;gap:0;}
+    .steps-list{display:flex;flex-direction:column;gap:0;max-width:700px;}
     .step-row{display:flex;gap:18px;}
     .step-line-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
     .step-circle-num{width:34px;height:34px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--accent2);flex-shrink:0;}
@@ -157,33 +188,8 @@
     .step-body p{font-size:0.81rem;color:var(--muted2);line-height:1.6;}
     .step-gap{height:10px;}
 
-    /* Pricing */
-    .pricing-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
-    .pricing-hdr p{font-size:0.875rem;color:var(--muted2);margin-bottom:26px;}
-    .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    .price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:relative;}
-    .price-card.pop{border-color:var(--accent);background:#222;}
-    .plan-badge-pill{display:inline-block;font-size:0.68rem;font-weight:700;border-radius:999px;padding:3px 11px;margin-bottom:14px;}
-    .pill-free{background:rgba(255,255,255,0.07);color:var(--muted2);border:1px solid var(--border2);}
-    .pill-pop{background:var(--accent);color:white;}
-    .plan-name{font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:5px;}
-    .plan-price{font-size:2.3rem;font-weight:900;color:var(--white);line-height:1;}
-    .plan-price sup{font-size:1rem;font-weight:500;vertical-align:super;}
-    .plan-price span{font-size:0.82rem;font-weight:400;color:var(--muted);}
-    .divider{border:none;border-top:1px solid var(--border);margin:18px 0;}
-    .pfeats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:22px;}
-    .pfeats li{display:flex;align-items:center;gap:9px;font-size:0.82rem;}
-    .chk{color:var(--green);flex-shrink:0;font-size:0.82rem;}
-    .crs{color:var(--muted);flex-shrink:0;font-size:0.82rem;}
-    .crs+span{color:var(--muted);}
-    .btn-upgrade{width:100%;padding:12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;}
-    .btn-upgrade:hover{background:var(--accent2);}
-    .btn-getfree{width:100%;padding:12px;background:transparent;color:var(--white);border:1px solid var(--border2);border-radius:8px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:border-color .2s,color .2s;}
-    .btn-getfree:hover{border-color:var(--accent);color:var(--accent);}
-    .money-back{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:12px;}
-
     /* FAQ */
-    .faq{padding:80px 60px;background:var(--bg2);}
+    .faq{padding:80px 60px;background:var(--bg);}
     .faq-hdr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:38px;}
     .faq-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);}
     .faq-hdr p{font-size:0.875rem;color:var(--muted2);padding-top:6px;}
@@ -194,7 +200,7 @@
     .faq-card a{color:var(--accent2);}
 
     /* TESTIMONIALS */
-    .testi{padding:80px 60px;background:var(--bg);}
+    .testi{padding:80px 60px;background:var(--bg2);}
     .testi-hdr{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:38px;}
     .testi-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);}
     .testi-hdr p{font-size:0.875rem;color:var(--muted2);padding-top:6px;}
@@ -228,8 +234,8 @@
     @media(max-width:900px){
       nav{padding:0 20px;}
       .nav-links{display:none;}
-      .hero,.about,.stats,.action,.features,.setup-pricing,.faq,.testi,.complete,footer{padding:48px 22px;}
-      .hero,.sp-grid,.features-hdr,.faq-hdr,.testi-hdr,.feat-grid,.testi-grid,.faq-grid,.pricing-grid,.stats-grid,.checklist{grid-template-columns:1fr;}
+      .hero,.about,.stats,.action,.features,.pricing-section,.setup-section,.faq,.testi,.complete,footer{padding:48px 22px;}
+      .hero,.features-hdr,.faq-hdr,.testi-hdr,.feat-grid,.testi-grid,.faq-grid,.pricing-grid,.stats-grid,.checklist{grid-template-columns:1fr;}
       .perspective{grid-template-columns:1fr;}
       .footer-grid{grid-template-columns:1fr;}
     }
@@ -259,7 +265,7 @@
   <div class="hero">
     <div class="hero-text">
       <div class="hero-badge">AI-Powered Discord Bot</div>
-      <h1>AI Ticket <span class="orange">Bot for<br>Discord</span> Servers</h1>
+      <h1>AI Ticket <span class="blue">Bot for<br>Discord</span> Servers</h1>
       <p class="hero-sub">Automate your server's support with our AI-powered ticket system that handles routine inquiries and helps staff manage complex issues efficiently. Free tier available!</p>
       <div class="hero-btns">
         <button class="btn-discord">
@@ -269,7 +275,6 @@
         <button class="btn-outline-sm">📄 Documentation</button>
       </div>
     </div>
-    <!-- Dashboard mockup -->
     <div class="hero-mockup">
       <div class="dash-wrap">
         <div class="dash-topbar">
@@ -293,7 +298,7 @@
             <div class="dash-side-item">🤖 AI Management</div>
           </div>
           <div class="dash-main">
-            <div class="dash-srv-name">🟠 test</div>
+            <div class="dash-srv-name">🔵 test</div>
             <div class="dash-srv-sub">Manage your Discord server</div>
             <div class="dash-sec-title">Server Overview</div>
             <div class="dash-sg">
@@ -318,7 +323,7 @@
 
 <!-- ABOUT -->
 <div class="about">
-  <h2 class="reveal">The Best Discord Ticket <span class="orange">Bot with AI Support</span></h2>
+  <h2 class="reveal">The Best Discord Ticket <span class="blue">Bot with AI Support</span></h2>
   <p class="reveal reveal-delay-1">Looking for a reliable <strong>ticket bot for your Discord server</strong>? AI Ticket Bot provides intelligent ticket management with automated AI responses, custom ticket panels, and seamless staff integration — everything you need for efficient Discord support. Unlike traditional Discord bots, our AI-powered solution can understand and respond to your users 24/7, even when your team is offline.</p>
   <div class="about-links reveal reveal-delay-2">
     <button class="about-btn"><span class="ic">⚡</span> Discord Ticket Setup Guide</button>
@@ -340,7 +345,7 @@
 <!-- IN ACTION -->
 <div class="action">
   <div class="section-header-row reveal">
-    <h2>See AI Ticket <span class="orange">Bot in Action</span></h2>
+    <h2>See AI Ticket <span class="blue">Bot in Action</span></h2>
     <span class="sub">Experience how our AI handles support tickets</span>
   </div>
   <div class="tabs reveal reveal-delay-1">
@@ -349,7 +354,7 @@
   </div>
   <div class="perspective reveal reveal-delay-2">
     <div>
-      <h3>From the User's <span class="orange">Perspective</span></h3>
+      <h3>From the User's <span class="blue">Perspective</span></h3>
       <p>Your members get instant, accurate responses 24/7. The AI understands context, provides helpful solutions, and escalates complex issues to your team when needed.</p>
       <div class="ptags">
         <span class="ptag">⚡ Instant Responses</span>
@@ -381,7 +386,7 @@
 <!-- FEATURES -->
 <div class="features" id="features">
   <div class="features-hdr reveal">
-    <h2>Powerful <span class="orange">Features</span> for Discord<br>Communities</h2>
+    <h2>Powerful <span class="blue">Features</span> for Discord<br>Communities</h2>
     <p>Everything you need to provide exceptional support</p>
   </div>
   <div class="feat-grid">
@@ -394,94 +399,115 @@
   </div>
 </div>
 
-<!-- SETUP + PRICING -->
-<div class="setup-pricing" id="setup">
-  <div class="sp-grid">
-    <div class="reveal">
-      <div class="setup-hdr">
-        <h2>Get Started <span class="orange">in Minutes</span></h2>
-        <p>Simple setup process to get your AI ticket system running</p>
+<!-- PRICING -->
+<div class="pricing-section" id="pricing">
+  <div class="pricing-hdr reveal">
+    <h2>Simple, Transparent <span class="blue">Pricing</span></h2>
+    <p>Choose the plan that fits your server's needs</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <div class="plan-badge-pill pill-free">Free Forever</div>
+      <div class="plan-name">Free</div>
+      <div class="plan-price"><sup>$</sup>0<span>/month</span></div>
+      <p class="plan-desc">Perfect for small communities getting started with AI support.</p>
+      <hr class="divider">
+      <ul class="pfeats">
+        <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
+        <li><span class="chk">✓</span><span>AI Assistant</span></li>
+        <li><span class="chk">✓</span><span>Public AI Channel</span></li>
+        <li><span class="chk">✓</span><span>Basic AI Training</span></li>
+        <li><span class="crs">✕</span><span>Unlimited AI Tickets</span></li>
+        <li><span class="crs">✕</span><span>Higher Tokens Limit</span></li>
+        <li><span class="crs">✕</span><span>Priority Support</span></li>
+        <li><span class="crs">✕</span><span>Custom Branding</span></li>
+      </ul>
+      <button class="btn-getfree">Get Started Free</button>
+    </div>
+    <div class="price-card pop reveal reveal-delay-1">
+      <div class="plan-badge-pill pill-pop">Most Popular</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-price"><sup>$</sup>6.99<span>/month</span></div>
+      <p class="plan-desc">For growing servers that need powerful AI support tools.</p>
+      <hr class="divider">
+      <ul class="pfeats">
+        <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
+        <li><span class="chk">✓</span><span>Advanced AI Assistant</span></li>
+        <li><span class="chk">✓</span><span>Public AI Channel</span></li>
+        <li><span class="chk">✓</span><span>Enhanced AI Training</span></li>
+        <li><span class="chk">✓</span><span>Detailed Analytics</span></li>
+        <li><span class="chk">✓</span><span>Response Templates</span></li>
+        <li><span class="chk">✓</span><span>Auto-close Inactive Tickets</span></li>
+        <li><span class="chk">✓</span><span>Smart Ticket Tagging</span></li>
+      </ul>
+      <button class="btn-upgrade">Upgrade to Premium</button>
+      <div class="money-back">30-day money-back guarantee</div>
+    </div>
+    <div class="price-card enterprise reveal reveal-delay-2">
+      <div class="plan-badge-pill pill-enterprise">🏢 Enterprise</div>
+      <div class="plan-name">Enterprise</div>
+      <div class="plan-price"><sup>$</sup>24.99<span>/month</span></div>
+      <p class="plan-desc">For large communities and businesses needing full control and support.</p>
+      <hr class="divider">
+      <ul class="pfeats">
+        <li><span class="chk-purple">✓</span><span>Everything in Premium</span></li>
+        <li><span class="chk-purple">✓</span><span>Unlimited AI Tokens</span></li>
+        <li><span class="chk-purple">✓</span><span>Custom Branding & Bot Name</span></li>
+        <li><span class="chk-purple">✓</span><span>Dedicated Support Agent</span></li>
+        <li><span class="chk-purple">✓</span><span>Multi-Server Management</span></li>
+        <li><span class="chk-purple">✓</span><span>SLA Uptime Guarantee</span></li>
+        <li><span class="chk-purple">✓</span><span>Advanced Role Permissions</span></li>
+        <li><span class="chk-purple">✓</span><span>Early Access to New Features</span></li>
+      </ul>
+      <button class="btn-enterprise">Get Enterprise</button>
+      <div class="money-back">30-day money-back guarantee</div>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP -->
+<div class="setup-section" id="setup">
+  <div class="setup-hdr reveal">
+    <h2>Get Started <span class="blue">in Minutes</span></h2>
+    <p>Simple setup process to get your AI ticket system running</p>
+  </div>
+  <div class="steps-list reveal reveal-delay-1">
+    <div class="step-row">
+      <div class="step-line-col">
+        <div class="step-circle-num">1</div>
+        <div class="step-vline"></div>
+        <div class="step-icon-circle">💬</div>
       </div>
-      <div class="steps-list">
-        <div class="step-row">
-          <div class="step-line-col">
-            <div class="step-circle-num">1</div>
-            <div class="step-vline"></div>
-            <div class="step-icon-circle">💬</div>
-          </div>
-          <div style="flex:1;padding-bottom:14px;">
-            <div class="step-body">
-              <h4>Add Bot to Server</h4>
-              <p>Click the invite link and select your Discord server from the dropdown menu.</p>
-            </div>
-          </div>
-        </div>
-        <div class="step-gap"></div>
-        <div class="step-row">
-          <div class="step-line-col">
-            <div class="step-circle-num">2</div>
-            <div class="step-vline"></div>
-            <div class="step-icon-circle">⚙️</div>
-          </div>
-          <div style="flex:1;padding-bottom:14px;">
-            <div class="step-body">
-              <h4>Configure Settings</h4>
-              <p>Use our intuitive dashboard to set up ticket categories, AI responses, and staff roles.</p>
-            </div>
-          </div>
-        </div>
-        <div class="step-gap"></div>
-        <div class="step-row">
-          <div class="step-line-col">
-            <div class="step-circle-num">3</div>
-          </div>
-          <div style="flex:1;">
-            <div class="step-body">
-              <h4>Start Supporting Users</h4>
-              <p>That's it! Your AI-powered ticket system is ready to handle support requests 24/7.</p>
-            </div>
-          </div>
+      <div style="flex:1;padding-bottom:14px;">
+        <div class="step-body">
+          <h4>Add Bot to Server</h4>
+          <p>Click the invite link and select your Discord server from the dropdown menu.</p>
         </div>
       </div>
     </div>
-    <div id="pricing" class="reveal reveal-delay-2">
-      <div class="pricing-hdr">
-        <h2>Simple, Transparent <span class="orange">Pricing</span></h2>
-        <p>Choose the plan that fits your server's needs</p>
+    <div class="step-gap"></div>
+    <div class="step-row">
+      <div class="step-line-col">
+        <div class="step-circle-num">2</div>
+        <div class="step-vline"></div>
+        <div class="step-icon-circle">⚙️</div>
       </div>
-      <div class="pricing-grid">
-        <div class="price-card">
-          <div class="plan-badge-pill pill-free">Free Forever</div>
-          <div class="plan-name">Free</div>
-          <div class="plan-price"><sup>$</sup>0<span>/month</span></div>
-          <hr class="divider">
-          <ul class="pfeats">
-            <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
-            <li><span class="chk">✓</span><span>AI Assistant</span></li>
-            <li><span class="chk">✓</span><span>Public AI Channel</span></li>
-            <li><span class="chk">✓</span><span>Basic AI Training</span></li>
-            <li><span class="crs">✕</span><span>Unlimited AI Tickets</span></li>
-            <li><span class="crs">✕</span><span>Higher Tokens Limit</span></li>
-          </ul>
-          <button class="btn-getfree">Get Started Free</button>
+      <div style="flex:1;padding-bottom:14px;">
+        <div class="step-body">
+          <h4>Configure Settings</h4>
+          <p>Use our intuitive dashboard to set up ticket categories, AI responses, and staff roles.</p>
         </div>
-        <div class="price-card pop">
-          <div class="plan-badge-pill pill-pop">Most Popular</div>
-          <div class="plan-name">Premium</div>
-          <div class="plan-price"><sup>$</sup>6.99<span>/month</span></div>
-          <hr class="divider">
-          <ul class="pfeats">
-            <li><span class="chk">✓</span><span>Unlimited Tickets</span></li>
-            <li><span class="chk">✓</span><span>Advanced AI Assistant</span></li>
-            <li><span class="chk">✓</span><span>Public AI Channel</span></li>
-            <li><span class="chk">✓</span><span>Enhanced AI Training</span></li>
-            <li><span class="chk">✓</span><span>Detailed analytics</span></li>
-            <li><span class="chk">✓</span><span>Response Templates</span></li>
-            <li><span class="chk">✓</span><span>Auto-close inactive tickets</span></li>
-            <li><span class="chk">✓</span><span>Smart Ticket Tagging</span></li>
-          </ul>
-          <button class="btn-upgrade">Upgrade to Premium</button>
-          <div class="money-back">30-day money-back guarantee</div>
+      </div>
+    </div>
+    <div class="step-gap"></div>
+    <div class="step-row">
+      <div class="step-line-col">
+        <div class="step-circle-num">3</div>
+      </div>
+      <div style="flex:1;">
+        <div class="step-body">
+          <h4>Start Supporting Users</h4>
+          <p>That's it! Your AI-powered ticket system is ready to handle support requests 24/7.</p>
         </div>
       </div>
     </div>
@@ -491,7 +517,7 @@
 <!-- FAQ -->
 <div class="faq" id="faq">
   <div class="faq-hdr reveal">
-    <h2>Frequently <span class="orange">Asked</span> Questions</h2>
+    <h2>Frequently <span class="blue">Asked</span> Questions</h2>
     <p>Find answers to common questions about AI Ticket Bot</p>
   </div>
   <div class="faq-grid">
@@ -507,7 +533,7 @@
 <!-- TESTIMONIALS -->
 <div class="testi" id="testimonials">
   <div class="testi-hdr reveal">
-    <h2>What Discord <span class="orange">Server Owners</span> Say</h2>
+    <h2>What Discord <span class="blue">Server Owners</span> Say</h2>
     <p>Join hundreds of satisfied server administrators</p>
   </div>
   <div class="testi-grid">
@@ -535,7 +561,7 @@
 <!-- COMPLETE SOLUTION -->
 <div class="complete">
   <div class="complete-inner reveal">
-    <h2>The Complete Discord Ticket <span class="orange">Management Solution</span></h2>
+    <h2>The Complete Discord Ticket <span class="blue">Management Solution</span></h2>
     <p>AI Ticket Bot is designed to revolutionize how Discord communities handle support. From gaming servers to education communities, NFT projects to developer groups, our <strong>Discord ticket bot</strong> provides the tools you need to deliver exceptional support experiences.</p>
     <p>Unlike other Discord bots, our <strong>AI-powered ticket system</strong> intelligently handles inquiries, learns from interactions, and gets smarter over time. With both free and premium tiers, servers of all sizes can benefit from automated support.</p>
     <div class="checklist">
