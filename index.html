@@ -172,12 +172,12 @@
     .btn-getfree:hover{border-color:var(--accent);color:var(--accent);}
     .money-back{text-align:center;font-size:0.72rem;color:var(--muted);margin-top:12px;}
 
-    /* SETUP */
-    .setup-section{padding:80px 60px;background:var(--bg2);}
-    .setup-hdr{margin-bottom:28px;}
+    /* SETUP — centered */
+    .setup-section{padding:80px 60px;background:var(--bg2);display:flex;flex-direction:column;align-items:center;}
+    .setup-hdr{margin-bottom:28px;text-align:center;width:100%;max-width:700px;}
     .setup-hdr h2{font-size:1.75rem;font-weight:800;color:var(--white);margin-bottom:7px;}
     .setup-hdr p{font-size:0.875rem;color:var(--muted2);}
-    .steps-list{display:flex;flex-direction:column;gap:0;max-width:700px;}
+    .steps-list{display:flex;flex-direction:column;gap:0;width:100%;max-width:700px;}
     .step-row{display:flex;gap:18px;}
     .step-line-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
     .step-circle-num{width:34px;height:34px;border-radius:50%;background:var(--accent-dim);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--accent2);flex-shrink:0;}
@@ -335,10 +335,10 @@
 <!-- STATS -->
 <div class="stats">
   <div class="stats-grid">
-    <div class="stat-card reveal"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num" data-target="114">0</div><div class="stat-sub">Discord servers using our bot</div></div>
-    <div class="stat-card reveal reveal-delay-1"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num" data-target="18921">0</div><div class="stat-sub">Tickets resolved automatically</div></div>
+    <div class="stat-card reveal"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num" data-target="2776">0</div><div class="stat-sub">Discord servers using our bot</div></div>
+    <div class="stat-card reveal reveal-delay-1"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num" data-target="144731">0</div><div class="stat-sub">Tickets resolved automatically</div></div>
     <div class="stat-card reveal reveal-delay-2"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num" data-target="258">0</div><div class="stat-sub">Servers with AI automation</div></div>
-    <div class="stat-card reveal reveal-delay-3"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num" data-target="6" data-suffix="s">0</div><div class="stat-sub">Lightning-fast AI responses</div></div>
+    <div class="stat-card reveal reveal-delay-3"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num" data-target="4" data-suffix="s">0</div><div class="stat-sub">Lightning-fast AI responses</div></div>
   </div>
 </div>
 
@@ -465,7 +465,7 @@
   </div>
 </div>
 
-<!-- SETUP -->
+<!-- SETUP — centered -->
 <div class="setup-section" id="setup">
   <div class="setup-hdr reveal">
     <h2>Get Started <span class="blue">in Minutes</span></h2>
@@ -595,7 +595,6 @@
 </footer>
 
 <script>
-  // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -607,7 +606,6 @@
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  // Count-up animation
   const counters = document.querySelectorAll('.stat-num');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
