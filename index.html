@@ -317,10 +317,10 @@
 <!-- STATS -->
 <div class="stats">
   <div class="stats-grid">
-    <div class="stat-card"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num">2,776</div><div class="stat-sub">Discord servers using our bot</div></div>
-    <div class="stat-card"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num">144,731</div><div class="stat-sub">Tickets resolved automatically</div></div>
-    <div class="stat-card"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num">258</div><div class="stat-sub">Servers with AI automation</div></div>
-    <div class="stat-card"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num">4s</div><div class="stat-sub">Lightning-fast AI responses</div></div>
+    <div class="stat-card"><div class="stat-ic">🖥</div><div class="stat-lbl">Servers</div><div class="stat-num" data-target="2776">0</div><div class="stat-sub">Discord servers using our bot</div></div>
+    <div class="stat-card"><div class="stat-ic">🎫</div><div class="stat-lbl">Tickets Handled</div><div class="stat-num" data-target="144731">0</div><div class="stat-sub">Tickets resolved automatically</div></div>
+    <div class="stat-card"><div class="stat-ic">🤖</div><div class="stat-lbl">AI-Enabled Servers</div><div class="stat-num" data-target="258">0</div><div class="stat-sub">Servers with AI automation</div></div>
+    <div class="stat-card"><div class="stat-ic">⚡</div><div class="stat-lbl">Avg Response Time</div><div class="stat-num" data-target="4" data-suffix="s">0</div><div class="stat-sub">Lightning-fast AI responses</div></div>
   </div>
 </div>
 
@@ -561,6 +561,29 @@
   </div>
   <div class="footer-bottom">© 2026 AI Ticket Bot. All rights reserved.</div>
 </footer>
+
+<script>
+  const counters = document.querySelectorAll('.stat-num');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.dataset.target;
+        const suffix = el.dataset.suffix || '';
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = Math.floor(current).toLocaleString() + suffix;
+        }, 16);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(counter => observer.observe(counter));
+</script>
 
 </body>
 </html>
